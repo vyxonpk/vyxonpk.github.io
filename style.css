@@ -6,7 +6,7 @@
 }
 
 body{
-    background: radial-gradient(circle at top, #0b1220, #05070D);
+    background: radial-gradient(circle at top, #0b1b2b, #05070D);
     color:white;
     overflow-x:hidden;
 }
@@ -21,100 +21,91 @@ nav{
     align-items:center;
     padding:18px 8%;
     background:rgba(5,7,13,0.6);
-    backdrop-filter: blur(15px);
+    backdrop-filter: blur(12px);
     z-index:1000;
 }
 
 .logo{
-    font-size:28px;
+    font-size:26px;
     font-weight:800;
     color:#0EA5FF;
-    letter-spacing:1px;
 }
 
 nav ul{
     display:flex;
     list-style:none;
-    gap:35px;
+    gap:30px;
 }
 
 nav ul a{
     color:white;
     text-decoration:none;
-    transition:0.3s;
     font-weight:500;
+    transition:0.3s;
 }
 
 nav ul a:hover{
     color:#0EA5FF;
 }
 
-/* BUTTON */
 .btn{
     background:#0EA5FF;
-    color:white;
-    padding:10px 22px;
+    padding:10px 20px;
     border-radius:30px;
+    color:white;
     text-decoration:none;
-    transition:0.3s;
     font-weight:600;
 }
 
-.btn:hover{
-    transform:translateY(-2px);
-    box-shadow:0 0 25px #0EA5FF;
-}
-
-/* HERO */
+/* HERO LAYOUT (FIXED PROPER CENTER) */
 .hero{
     height:100vh;
     display:flex;
     align-items:center;
-    justify-content:space-between;
+    justify-content:center;
+    text-align:center;
     padding:0 8%;
     position:relative;
+    flex-direction:column;
 }
 
-/* GLOW EFFECT */
+/* GLOW */
 .glow{
     position:absolute;
-    width:500px;
-    height:500px;
+    width:600px;
+    height:600px;
     background:#0EA5FF;
-    filter:blur(180px);
-    opacity:0.2;
-    top:50%;
-    left:50%;
-    transform:translate(-50%,-50%);
+    filter:blur(200px);
+    opacity:0.18;
     z-index:-1;
 }
 
 /* TEXT */
 .hero-text{
-    max-width:550px;
+    max-width:700px;
 }
 
 .hero-text h1{
-    font-size:70px;
-    line-height:1;
+    font-size:72px;
     font-weight:900;
+    line-height:1;
 }
 
 .hero-text p{
-    margin:20px 0;
+    margin-top:20px;
     font-size:18px;
     color:#cfd6e4;
     line-height:1.6;
 }
 
-/* HERO BUTTON */
+/* BUTTON */
 .hero-btn{
     display:inline-block;
-    margin-top:10px;
-    background:#0EA5FF;
+    margin-top:25px;
     padding:12px 28px;
-    border-radius:30px;
+    background:#0EA5FF;
     color:white;
+    border-radius:30px;
     text-decoration:none;
     font-weight:600;
     transition:0.3s;
@@ -122,42 +113,35 @@ nav ul a:hover{
 
 .hero-btn:hover{
     transform:scale(1.05);
-    box-shadow:0 0 25px #0EA5FF;
 }
 
-/* BOTTLE IMAGE */
+/* BOTTLE FIXED POSITION */
 .hero-image img{
-    width:320px;
+    width:260px;
+    margin-top:40px;
     animation:float 4s ease-in-out infinite;
-    filter:drop-shadow(0 20px 40px rgba(0,0,0,0.6));
+    filter:drop-shadow(0 20px 30px rgba(0,0,0,0.5));
 }
 
-/* FLOAT ANIMATION */
+/* FLOAT */
 @keyframes float{
-    0%{transform:translateY(0px);}
-    50%{transform:translateY(-20px);}
-    100%{transform:translateY(0px);}
+    0%{transform:translateY(0);}
+    50%{transform:translateY(-15px);}
+    100%{transform:translateY(0);}
 }
 
-/* RESPONSIVE */
+/* MOBILE */
 @media(max-width:900px){
 
     nav ul{
         display:none;
     }
 
-    .hero{
-        flex-direction:column;
-        text-align:center;
-        justify-content:center;
-        gap:40px;
-    }
-
     .hero-text h1{
-        font-size:45px;
+        font-size:42px;
     }
 
     .hero-image img{
-        width:250px;
+        width:200px;
     }
 }
