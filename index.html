@@ -632,7 +632,7 @@
         <div class="form-field"><label>Email</label><input type="email" id="cf-email" required placeholder="you@example.com"></div>
         <div class="form-field"><label>Message</label><textarea id="cf-message" placeholder="Tell us about your inquiry"></textarea></div>
         <button class="btn btn-primary form-submit" type="submit">Send Inquiry</button>
-        <p class="form-note" id="cf-note">You'll be redirected to your email app to send this directly to us.</p>
+        <p class="form-note" id="cf-note">We typically respond within one business day.</p>
       </form>
     </div>
   </div>
@@ -845,27 +845,51 @@ function renderReviews(){
 }
 renderReviews();
 
-/* ---------- CONTACT FORM -> EMAIL ---------- */
+/* ---------- CONTACT FORM -> EMAIL (Web3Forms) ---------- */
 const contactForm = document.getElementById('contactForm');
+const WEB3FORMS_ACCESS_KEY = 'bf6d60ce-fbcb-4fa6-9999-8dd323eea696';
 if(contactForm){
-  contactForm.addEventListener('submit', (e) => {
+  contactForm.addEventListener('submit', async (e) => {
     e.preventDefault();
+    const note = document.getElementById('cf-note');
+    const submitBtn = contactForm.querySelector('.form-submit');
     const name = document.getElementById('cf-name').value.trim();
     const business = document.getElementById('cf-business').value.trim();
     const city = document.getElementById('cf-city').value.trim();
     const email = document.getElementById('cf-email').value.trim();
     const message = document.getElementById('cf-message').value.trim();
 
-    const subject = `New VYXON Dealer Inquiry from ${name}`;
-    let body = `Name: ${name}\n`;
-    if(business) body += `Business: ${business}\n`;
-    body += `City: ${city}\n`;
-    body += `Email: ${email}\n`;
-    if(message) body += `\nMessage:\n${message}`;
+    submitBtn.disabled = true;
+    submitBtn.textContent = 'Sending...';
 
-    const mailtoLink = `mailto:vyxon.pk@gmail.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
-    window.location.href = mailtoLink;
-    document.getElementById('cf-note').textContent = 'Opened your email app with the details filled in — just hit send there to reach us.';
+    try{
+      const res = await fetch('https://api.web3forms.com/submit', {
+        method: 'POST',
+        headers: {'Content-Type':'application/json', Accept:'application/json'},
+        body: JSON.stringify({
+          access_key: WEB3FORMS_ACCESS_KEY,
+          subject: `New VYXON Dealer Inquiry from ${name}`,
+          from_name: 'VYXON Website',
+          name: name,
+          business: business || 'Not provided',
+          city: city,
+          email: email,
+          message: message || 'Not provided'
+        })
+      });
+      const data = await res.json();
+      if(data.success){
+        note.textContent = "Thanks — your inquiry has been sent. We'll be in touch shortly.";
+        contactForm.reset();
+      } else {
+        note.textContent = "Something went wrong sending your inquiry. Please try WhatsApp instead.";
+      }
+    } catch(err){
+      note.textContent = "Couldn't send right now — please try WhatsApp instead.";
+    } finally {
+      submitBtn.disabled = false;
+      submitBtn.textContent = 'Send Inquiry';
+    }
   });
 }
 gsap.utils.toArray('.section-head h2').forEach(h => {
