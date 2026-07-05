@@ -213,23 +213,23 @@
 
   /* ---------- PERFORMANCE SLIDER ---------- */
   .compare{position:relative;max-width:820px;margin:0 auto;border-radius:24px;overflow:hidden;border:1px solid var(--glass-border);aspect-ratio:16/8;}
-  .compare-after,.compare-before{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:10px;}
+  .compare-after,.compare-before{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:10px;opacity:0;transition:opacity .7s var(--ease);}
   .compare-before{background:linear-gradient(160deg,#1a1006,#3a2410 40%,#5c3a12);}
-  .compare-after{background:linear-gradient(160deg,#031421,#04263c 40%,#065a86);clip-path:inset(0 0 0 50%);}
+  .compare-after{background:linear-gradient(160deg,#031421,#04263c 40%,#065a86);}
   .compare-after::after, .compare-before::after{content:'';position:absolute;inset:0;background:radial-gradient(circle at 50% 40%, rgba(255,255,255,.08), transparent 60%);}
+  .compare.show-before .compare-before{opacity:1;}
+  .compare.show-after .compare-after{opacity:1;}
   .compare-tag{font-family:'Space Grotesk',sans-serif;font-size:13px;letter-spacing:.2em;text-transform:uppercase;padding:8px 18px;border-radius:100px;background:rgba(0,0,0,.35);position:relative;z-index:2;}
   .compare-before .compare-tag{color:#e8b06b;}
   .compare-after .compare-tag{color:var(--cyan);}
   .compare-sub{font-size:13px;color:rgba(255,255,255,.6);position:relative;z-index:2;}
-  .compare-handle-wrap{position:absolute;inset:0;display:flex;align-items:center;}
-  .compare-slider{position:absolute;inset:0;width:100%;height:100%;opacity:0;cursor:ew-resize;z-index:10;margin:0;}
-  .compare-line{position:absolute;top:0;bottom:0;left:50%;width:2px;background:var(--white);box-shadow:0 0 16px rgba(255,255,255,.6);pointer-events:none;z-index:5;}
-  .compare-knob{
-    position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:52px;height:52px;border-radius:50%;
-    background:rgba(255,255,255,.95);display:flex;align-items:center;justify-content:center;pointer-events:none;z-index:6;
-    box-shadow:0 4px 20px rgba(0,0,0,.4);
+  .compare-toggle{display:flex;justify-content:center;gap:10px;margin-top:26px;}
+  .compare-toggle button{
+    padding:11px 26px;border-radius:100px;font-family:'Inter',sans-serif;font-size:13.5px;font-weight:500;
+    background:rgba(255,255,255,.03);border:1px solid var(--glass-border);color:var(--grey);cursor:pointer;
+    transition:all .35s var(--ease);
   }
-  .compare-knob svg{width:20px;height:20px;stroke:#03050A;}
+  .compare-toggle button.active{background:linear-gradient(135deg,var(--blue),var(--cyan));color:#01121f;border-color:transparent;box-shadow:0 0 22px rgba(0,153,255,.35);}
 
   /* ---------- SCIENCE ---------- */
   .science-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:var(--glass-border);border:1px solid var(--glass-border);border-radius:20px;overflow:hidden;}
@@ -492,12 +492,13 @@
       <h2>Drag to see the difference.</h2>
       <p>A single application against untreated hard-water buildup.</p>
     </div>
-    <div class="compare reveal">
+    <div class="compare show-before" id="compareBox">
       <div class="compare-before"><span class="compare-tag">Before</span><span class="compare-sub">Hard water stains &amp; limescale</span></div>
-      <div class="compare-after" id="compareAfter"><span class="compare-tag">After</span><span class="compare-sub">Mirror-clean, brilliant shine</span></div>
-      <div class="compare-line" id="compareLine"></div>
-      <div class="compare-knob" id="compareKnob"><svg viewBox="0 0 24 24" fill="none" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 8L4 12l4 4M16 8l4 4-4 4"/></svg></div>
-      <input type="range" min="0" max="100" value="50" class="compare-slider" id="compareSlider">
+      <div class="compare-after"><span class="compare-tag">After</span><span class="compare-sub">Mirror-clean, brilliant shine</span></div>
+    </div>
+    <div class="compare-toggle reveal">
+      <button class="active" id="btnBefore">Before</button>
+      <button id="btnAfter">After</button>
     </div>
   </div>
 </section>
@@ -604,16 +605,20 @@
     <div class="contact-grid">
       <div class="reveal">
         <div class="contact-info-card">
+          <h4>Founder &amp; CEO</h4>
+          <p>Furqan Mashwani — happy to speak directly with dealers and partners.</p>
+        </div>
+        <div class="contact-info-card">
           <h4>WhatsApp</h4>
           <p>Fastest way to reach our team directly.</p>
-          <a href="https://wa.me/923000000000" class="whatsapp-btn" target="_blank" rel="noopener">
+          <a href="https://wa.me/923045501181" class="whatsapp-btn" target="_blank" rel="noopener">
             <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.85.5 3.58 1.36 5.07L2 22l5.19-1.44a9.9 9.9 0 004.85 1.24h.01c5.46 0 9.9-4.45 9.9-9.9C21.96 6.45 17.5 2 12.04 2z"/></svg>
-            Chat on WhatsApp
+            Chat on WhatsApp — 0304 5501181
           </a>
         </div>
         <div class="contact-info-card">
           <h4>Email</h4>
-          <a href="mailto:dealers@vyxon.pk">dealers@vyxon.pk</a>
+          <a href="mailto:vyxon.pk@gmail.com">vyxon.pk@gmail.com</a>
         </div>
         <div class="contact-info-card">
           <h4>Location</h4>
@@ -670,7 +675,7 @@
       <div class="socials">
         <a href="#" aria-label="Facebook"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8"><path d="M14 9h3V6h-3c-1.7 0-3 1.3-3 3v2H9v3h2v6h3v-6h3l1-3h-4V9c0-.5.4-1 1-1z"/></svg></a>
         <a href="#" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1"/></svg></a>
-        <a href="https://wa.me/923000000000" aria-label="WhatsApp"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8"><path d="M12 2a10 10 0 00-8.5 15.2L2 22l4.9-1.4A10 10 0 1012 2z"/></svg></a>
+        <a href="https://wa.me/923045501181" aria-label="WhatsApp"><svg viewBox="0 0 24 24" fill="none" stroke-width="1.8"><path d="M12 2a10 10 0 00-8.5 15.2L2 22l4.9-1.4A10 10 0 1012 2z"/></svg></a>
       </div>
     </div>
   </div>
@@ -768,18 +773,18 @@ if(window.matchMedia('(pointer: fine)').matches){
   showcaseStage.addEventListener('mouseleave', () => { showcaseBottle.style.transform = 'rotateY(0) rotateX(0)'; });
 }
 
-/* ---------- COMPARE SLIDER ---------- */
-const compareSlider = document.getElementById('compareSlider');
-const compareAfter = document.getElementById('compareAfter');
-const compareLine = document.getElementById('compareLine');
-const compareKnob = document.getElementById('compareKnob');
-function updateCompare(v){
-  compareAfter.style.clipPath = `inset(0 0 0 ${v}%)`;
-  compareLine.style.left = v + '%';
-  compareKnob.style.left = v + '%';
+/* ---------- COMPARE TOGGLE ---------- */
+const compareBox = document.getElementById('compareBox');
+const btnBefore = document.getElementById('btnBefore');
+const btnAfter = document.getElementById('btnAfter');
+function setCompare(state){
+  compareBox.classList.toggle('show-before', state === 'before');
+  compareBox.classList.toggle('show-after', state === 'after');
+  btnBefore.classList.toggle('active', state === 'before');
+  btnAfter.classList.toggle('active', state === 'after');
 }
-compareSlider.addEventListener('input', (e) => updateCompare(e.target.value));
-updateCompare(50);
+btnBefore.addEventListener('click', () => setCompare('before'));
+btnAfter.addEventListener('click', () => setCompare('after'));
 
 /* ---------- STATS COUNTER ---------- */
 const statNums = document.querySelectorAll('.stat .num');
